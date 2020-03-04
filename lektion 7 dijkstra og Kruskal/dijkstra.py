@@ -13,21 +13,24 @@ def dijkstra(g, s):
     locators = {}
     for v in g.vertices():
         if v == s:
-            dist[v] = 0
+            v.dist = 0
         else:
-            dist[v] = infinity
-        l = q.add(dist[v], v)
-        locators[v] = l
-    
+            v.dist = infinity
+        l = q.add(v.dist, v)
+        v.locator = l
+
+
     while q.__len__()>0:
         (key, u) = q.remove_min()
         print("***", key, u)
         for e in g.incident_edges(u):
             w = g.opposite(u,e)
 
-            if dist[w] > dist[u] + e.element():
-                dist[w] = dist[u] + e.element()
-                q.update(locators[w],dist[w], w)
+            print(u.__dict__)
+            
+            if  w.dist > u.dist + e.element():
+                w.dist = u.dist + e.element()
+                q.update(w.locator, w.dist, w)
 
 
 g = edge_list_graph.Graph()
