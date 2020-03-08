@@ -58,7 +58,9 @@ class unionFind:
 #finder nodens leader (Øverste node)
     def quickFind(self, x):
         if x._parent != x:
-            self.quickFind(x._parent)
+
+            #path compression
+            x._parent = self.quickFind(x._parent)
         return x
 
 #tilføjer det mindste træ, som barn til leaderen på det største 
