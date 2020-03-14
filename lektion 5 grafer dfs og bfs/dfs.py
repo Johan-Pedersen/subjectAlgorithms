@@ -56,7 +56,7 @@ class dfs_iterator:
     def DFS(self, g: Graph):
         
         for u in g.vertices():
-            self._unexploredV.append(u._element)
+            self._unexploredV.append(u)
         
         for u in g.edges():
             self._unexploredE.append(u)
@@ -71,22 +71,23 @@ class dfs_iterator:
         for u in self._unexploredV:
             self._DFS(g, u)
 
+
 g = Graph()
 
-g.insert_vertex(15)
-g.insert_vertex(6)
-g.insert_vertex(38)
-g.insert_vertex(123)
-g.insert_vertex(66)
+v15 = g.insert_vertex(15)
+v6 = g.insert_vertex(6)
+v38 = g.insert_vertex(38)
+v123 = g.insert_vertex(123)
+v66 = g.insert_vertex(66)
 
-g.insert_edge(10,15,38)
-g.insert_edge(23, 15,6)
-g.insert_edge(90, 15,66)
-g.insert_edge(8, 66,6)
-g.insert_edge(2, 66,38)
-g.insert_edge(76, 66,123)
-g.insert_edge(7, 123,6)
-g.insert_edge(55, 123,38)
+g.insert_edge(10,v15,v38)
+g.insert_edge(23, v15,v6)
+g.insert_edge(90, v15,v66)
+g.insert_edge(8, v66,v6)
+g.insert_edge(2, v66,v38)
+g.insert_edge(76, v66,v123)
+g.insert_edge(7, v123,v6)
+g.insert_edge(55, v123,v38)
 
 g2 = Graph()
 
