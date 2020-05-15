@@ -1,71 +1,58 @@
 class Vertex:    
     def __init__(self, e):
         self._element = e
-        self._inflow = 0
-        self._outflow = 0
     
     def __str__(self):
         return str(self._element)
     
     def element(self):
         return self._element
-    
-    def inflow(self):
-        return self._inflow
-    
-    def addInflow(self, inflow):
-        self._inflow += inflow
-
-    def removeInflow(self, inflow):
-        self._inflow -= inflow
-
-    def outflot(self):
-        return self._outflow
-    
-    def addOutflow(self, outflow):
-        self._outflow += outflow
-    
-    def removeOutflow(self, outflow):
-        self._outflow -= outflow
-
     
         
 class Edge:
-    def __init__(self, e, capacity, v1, v2):
-        if e < capacity:
-            self._element = e
-            self._capacity = capacity
-            self._endpoints = [v1, v2]
-        else:
-            raise Exception('Flow can\'t be bigger than capacity')
+    def __init__(self, e, v1, v2):
+        self._element = e
+        self._endpoints = [v1, v2]
+        self._fromVertex = v1
+        self._toVertex = v2
+        
 
     def __str__(self):
         return str(self._element)
     
-    #element fungerer som flow
     def element(self):
         return self._element
     
-    def capacity(self):
-        return self._capacity
-    
-    def vertexFrom(self):
-        return self._endpoints[0]
-    
-    def vertexTo(self):
-        return self._endpoints[1]
-    
     def endpoints(self):
         return self._endpoints
+
+    def fromVertex(self):
+        return self._fromVertex
+
+    def toVertex(self):
+        return self._toVertex
+
+
 
 class Graph:
 
     def __init__(self):
         self._vertices = []
         self._edges = []
-        self._source = None
-        self._sink = None
-        
+        self._start= None
+        self._end = None
+    
+    def start(self):
+        return self._start
+
+    def end(self):
+        return self._end
+    
+    def setStart(self, v):
+        self._start = v
+    
+    def setEnd(self, v):
+        self._end = v
     #Inserts and returns a new vertex containing the element e.
     #Input: V; Output: Vertex    
     def insert_vertex(self, e):
@@ -76,16 +63,14 @@ class Graph:
     #Removes the vertex v and all its incident edges
     #Input: Vertex; Output: nothing
     def remove_vertex(self, v):
-        self._edges = [e for e in self._edges if v not in e._vertices]
+        self._edges = [e for e in self._edges if v not in e._endpoints()] 
         self._vertices.remove(v)
     
     #Inserts and returns a new edge between the vertices v and w. 
-    #The element of the edge is o. 
-    def insert_edge(self, o, c, v, w):
-        e = Edge(o,c, v, w)
-
-        if not self.are_adjacent(v, w):
-            self._edges.append(e)
+    #The element of the edge is o.    
+    def insert_edge(self, o, v, w):
+        e = Edge(o, v, w)
+        self._edges.append(e)
         return e
 
     #Removes the edge e.
@@ -162,21 +147,9 @@ class Graph:
             if v in e._endpoints and w in e._endpoints:
                 return True
         return False
-
-    #Return the capcity of edge e
-    #input: Edge e; Output: int
-    def getCapcity(self, e):
-        return e.getCapcity()
+        
+    
+                
             
-    
-    #Return whether flow conservation is respected.
-    #is only called on a residual graph 
-    #output: bool
-    def flowConservation(self):
-        pass
-
-    def sink(self):
-        return self._sink
-    
-    def source(self):
-        return self._source
+            
+        
